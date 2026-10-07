@@ -1,0 +1,1 @@
+Загрузи skill test-driven-development и объясни порядок red → green → full check применительно к небольшой правке в этой практике. Ничего не изменяй.

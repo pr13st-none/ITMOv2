@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-07T20:12:21Z",
+  "step": "skill",
+  "command": [
+    "opencode",
+    "run",
+    "--standalone",
+    "--agent",
+    "build",
+    "--format",
+    "json",
+    "--auto",
+    "Загрузи skill test-driven-development и объясни порядок red → green → full check применительно к небольшой правке в этой практике. Ничего не изменяй."
+  ],
+  "exit_code": 0,
+  "wall_seconds": 8.42,
+  "events": [
+    {
+      "type": "tool",
+      "tool": "skill",
+      "name": "test-driven-development"
+    },
+    {
+      "type": "tool",
+      "tool": "read",
+      "path": ".opencode/skills/test-driven-development/SKILL.md"
+    },
+    {
+      "type": "text",
+      "text": "Порядок: сначала сформулировать наблюдаемое поведение, добавить тест и увидеть ожидаемый RED, затем сделать минимальную правку до GREEN и после этого выполнить полный bash check.sh."
+    }
+  ]
+}
