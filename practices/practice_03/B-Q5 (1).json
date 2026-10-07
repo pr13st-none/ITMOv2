@@ -1,0 +1,56 @@
+{
+  "command": [
+    "opencode",
+    "run",
+    "--standalone",
+    "--agent",
+    "local-guide",
+    "--format",
+    "json",
+    "--auto",
+    "Как запустить тесты проекта? Укажи источник и строки."
+  ],
+  "exit_code": 0,
+  "wall_seconds": 8.14,
+  "events": [
+    {
+      "type": "tool",
+      "tool": "read",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "state": {
+          "status": "completed",
+          "input": {
+            "filePath": "README.md"
+          },
+          "output": "file contents read"
+        }
+      }
+    },
+    {
+      "type": "tool",
+      "tool": "read",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "state": {
+          "status": "completed",
+          "input": {
+            "filePath": "Makefile"
+          },
+          "output": "file contents read"
+        }
+      }
+    },
+    {
+      "type": "text",
+      "part": {
+        "type": "text",
+        "text": "Тесты запускаются командой `make test`. Это указано в README.md:6; цель `test` также есть в Makefile:1-3."
+      }
+    }
+  ],
+  "stderr": "",
+  "non_json_stdout": []
+}

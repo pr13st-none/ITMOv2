@@ -1,0 +1,42 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/itmo-review-agent",
+  "default_agent": "local-guide",
+  "providers": {
+    "ollama": {
+      "settings": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      }
+    }
+  },
+  "agents": {
+    "local-guide": {
+      "description": "Read-only agent for the bundled demo repository",
+      "mode": "primary",
+      "system": "Ты помощник по учебному репозиторию. Сначала проверь утверждения вопроса по доступным файлам. Для каждого факта укажи файл и строки. Если ответа в репозитории нет, прямо напиши, что данных нет. Не выдумывай функции, CI, настройки и результаты команд. Отвечай кратко по-русски.",
+      "steps": 8,
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        }
+      ]
+    }
+  }
+}

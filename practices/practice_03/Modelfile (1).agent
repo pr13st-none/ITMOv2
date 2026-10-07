@@ -1,0 +1,56 @@
+{
+  "command": [
+    "opencode",
+    "run",
+    "--standalone",
+    "--agent",
+    "local-guide",
+    "--format",
+    "json",
+    "--auto",
+    "Сохраняются ли подписки после перезапуска процесса? Подтверди кодом."
+  ],
+  "exit_code": 0,
+  "wall_seconds": 9.89,
+  "events": [
+    {
+      "type": "tool",
+      "tool": "read",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "state": {
+          "status": "completed",
+          "input": {
+            "filePath": "README.md"
+          },
+          "output": "file contents read"
+        }
+      }
+    },
+    {
+      "type": "tool",
+      "tool": "read",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "state": {
+          "status": "completed",
+          "input": {
+            "filePath": "service.py"
+          },
+          "output": "file contents read"
+        }
+      }
+    },
+    {
+      "type": "text",
+      "part": {
+        "type": "text",
+        "text": "Нет. README.md:2 прямо говорит, что подписчики хранятся в памяти процесса, а service.py:1 создаёт обычный глобальный `set`. Механизма персистентности в доступном коде нет."
+      }
+    }
+  ],
+  "stderr": "",
+  "non_json_stdout": []
+}

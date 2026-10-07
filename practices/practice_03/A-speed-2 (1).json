@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-07T20:08:03.110Z",
+  "attempt": 1,
+  "command": [
+    "opencode",
+    "run",
+    "--standalone",
+    "--agent",
+    "build",
+    "--format",
+    "json",
+    "--auto",
+    "Выполни практику 3 на локальной модели через Ollama и OpenCode.\n\n1. Прочитай ASSIGNMENT.md и файлы lab/demo.\n2. Не меняй demo-репозиторий во время A/B эксперимента.\n3. Проведи два варианта на одной модели и одинаковых параметрах; меняется только system prompt.\n4. Для каждого варианта задай все пять вопросов из questions.json в отдельных сессиях.\n5. Сохрани ответы, tool calls и wall time.\n6. Отдельно сделай три прогретых замера скорости для A и B.\n7. Проверь целостность demo до и после эксперимента.\n8. Сведи результаты в REPORT.md и укажи, какой prompt лучше и почему."
+  ],
+  "exit_code": 0,
+  "wall_seconds": 132.47,
+  "stdout": "{\"type\":\"tool\",\"tool\":\"read\",\"path\":\"ASSIGNMENT.md\"}\n{\"type\":\"tool\",\"tool\":\"read\",\"path\":\"lab/demo/README.md\"}\n{\"type\":\"tool\",\"tool\":\"read\",\"path\":\"lab/demo/service.py\"}\n{\"type\":\"tool\",\"tool\":\"read\",\"path\":\"lab/demo/test_service.py\"}\n{\"type\":\"tool\",\"tool\":\"shell\",\"command\":\"python3 run_experiments.py\",\"result\":\"Practice 3 complete\"}\n{\"type\":\"tool\",\"tool\":\"read\",\"path\":\"REPORT.md\"}\n{\"type\":\"text\",\"text\":\"A/B завершён. Менялся только system prompt. A: 3/5, B: 5/5; медианы 8.03s и 9.35s. Для дальнейшего использования выбран B.\"}",
+  "stderr": ""
+}

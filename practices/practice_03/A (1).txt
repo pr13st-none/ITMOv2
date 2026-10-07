@@ -1,0 +1,26 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/itmo-review-agent",
+  "default_agent": "local-guide",
+  "providers": {
+    "ollama": {
+      "settings": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      }
+    }
+  },
+  "agents": {
+    "local-guide": {
+      "description": "Read-only local agent for the demo repository",
+      "mode": "primary",
+      "system": "Сначала читай доступные файлы. Отвечай кратко по-русски и указывай file:line. Если данных нет, прямо скажи об этом. Не выдумывай функции, CI, настройки или результаты команд.",
+      "steps": 8,
+      "permissions": [
+        {"action": "*", "resource": "*", "effect": "deny"},
+        {"action": "read", "resource": "*", "effect": "allow"},
+        {"action": "glob", "resource": "*", "effect": "allow"},
+        {"action": "grep", "resource": "*", "effect": "allow"}
+      ]
+    }
+  }
+}

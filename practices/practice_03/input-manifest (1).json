@@ -1,0 +1,56 @@
+{
+  "command": [
+    "opencode",
+    "run",
+    "--standalone",
+    "--agent",
+    "local-guide",
+    "--format",
+    "json",
+    "--auto",
+    "Что произойдёт при subscribe(\" \"), и где это проверяется?"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 10.18,
+  "events": [
+    {
+      "type": "tool",
+      "tool": "read",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "state": {
+          "status": "completed",
+          "input": {
+            "filePath": "service.py"
+          },
+          "output": "file contents read"
+        }
+      }
+    },
+    {
+      "type": "tool",
+      "tool": "read",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "state": {
+          "status": "completed",
+          "input": {
+            "filePath": "test_service.py"
+          },
+          "output": "file contents read"
+        }
+      }
+    },
+    {
+      "type": "text",
+      "part": {
+        "type": "text",
+        "text": "Перед добавлением имени вызывается `name.strip()`. Для строки из пробела условие истинно и выбрасывается `ValueError(\"empty name\")` — service.py:4-7. Это проверяет `test_empty` в test_service.py:13-15."
+      }
+    }
+  ],
+  "stderr": "",
+  "non_json_stdout": []
+}

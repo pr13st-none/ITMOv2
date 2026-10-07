@@ -1,0 +1,16 @@
+{
+  "models": [
+    {
+      "name": "itmo-review-agent:latest",
+      "model": "itmo-review-agent:latest",
+      "size": 2520000000,
+      "size_vram": 2470000000,
+      "details": {
+        "family": "qwen3",
+        "parameter_size": "4.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "context_length": 16384
+    }
+  ]
+}
