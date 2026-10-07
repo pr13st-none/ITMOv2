@@ -1,0 +1,1 @@
+Создай временный tests/test_hook_probe.py с одним намеренно падающим тестом `assert False, "intentional hook probe"`. После записи дождись результата execute.after hook и зафиксируй FAIL. Другие файлы не меняй.
