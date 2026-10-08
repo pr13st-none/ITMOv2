@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-python3 -m pytest -q
+if [[ -x .venv/bin/python ]]; then
+  exec .venv/bin/python check.py
+fi
+exec python3 check.py

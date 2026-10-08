@@ -9,6 +9,9 @@ class ContractError(ValueError):
 
 
 def check_payload(payload: dict) -> dict:
+    if not isinstance(payload, dict):
+        raise ContractError("payload_object_required", "Payload must be a JSON object")
+
     diff = payload.get("diff")
     if not isinstance(diff, str) or not diff.strip():
         raise ContractError("diff_required", "Field diff is required")

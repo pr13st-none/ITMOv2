@@ -1,20 +1,41 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "ollama/qwen3.5:4b",
+  "model": "ollama/itmo-practice4",
+  "small_model": "ollama/itmo-practice4",
   "default_agent": "build",
-  "permissions": [
-    {"action": "*", "resource": "*", "effect": "allow"},
-    {"action": "external_directory", "resource": "*", "effect": "deny"},
-    {"action": "webfetch", "resource": "*", "effect": "deny"},
-    {"action": "websearch", "resource": "*", "effect": "deny"}
-  ],
-  "mcp": {
-    "servers": {
-      "review-contract": {
-        "type": "local",
-        "command": ["python3", "mcp_server.py"],
-        "cwd": "."
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama local",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      },
+      "models": {
+        "itmo-practice4": {
+          "name": "ITMO Practice 4 (local Qwen3 4B)",
+          "limit": {
+            "context": 16384,
+            "output": 2048
+          }
+        }
       }
+    }
+  },
+  "permission": {
+    "*": "allow",
+    "external_directory": "deny",
+    "webfetch": "deny",
+    "websearch": "deny",
+    "bash": {
+      "*": "allow",
+      "git push*": "deny"
+    }
+  },
+  "mcp": {
+    "review-contract": {
+      "type": "local",
+      "command": ["python", "mcp_server.py"],
+      "enabled": true
     }
   }
 }
