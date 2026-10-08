@@ -21,6 +21,22 @@ def test_requires_diff():
     assert error.value.code == "diff_required"
 
 
+@pytest.mark.parametrize("diff", [None, 12, False, "", " \t\n"])
+def test_rejects_missing_or_non_text_diff(diff):
+    with pytest.raises(ContractError, match="Field diff is required"):
+        check_payload({"diff": diff})
+
+
+def test_accepts_exact_byte_limit():
+    assert check_payload({"diff": "ё" * (MAX_DIFF_BYTES // 2)})["diff_utf8_bytes"] == MAX_DIFF_BYTES
+
+
+def test_rejects_unicode_over_byte_limit():
+    with pytest.raises(ContractError) as error:
+        check_payload({"diff": "ё" * (MAX_DIFF_BYTES // 2 + 1)})
+    assert error.value.code == "diff_too_large"
+
+
 def test_rejects_non_object_payload_with_controlled_error():
     with pytest.raises(ContractError) as error:
         check_payload(None)

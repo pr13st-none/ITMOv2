@@ -16,6 +16,9 @@ def check_payload(payload: dict) -> dict:
     if not isinstance(diff, str) or not diff.strip():
         raise ContractError("diff_required", "Field diff is required")
 
+    if "\x00" in diff:
+        raise ContractError("diff_binary", "diff must be text without NUL bytes")
+
     size = len(diff.encode("utf-8"))
     if size > MAX_DIFF_BYTES:
         raise ContractError("diff_too_large", f"diff exceeds {MAX_DIFF_BYTES} UTF-8 bytes")

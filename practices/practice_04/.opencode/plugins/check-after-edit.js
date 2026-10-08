@@ -19,12 +19,19 @@ async function runCheck(cwd) {
   const python = await pythonCommand(cwd);
   return new Promise((resolve) => {
     const child = spawn(python, ['check.py'], { cwd, stdio: ['ignore', 'pipe', 'pipe'] });
+    const timer = setTimeout(() => child.kill(), 60000);
     let output = '';
     const collect = (chunk) => { output += chunk.toString(); };
     child.stdout.on('data', collect);
     child.stderr.on('data', collect);
-    child.on('error', (error) => resolve({ code: 1, output: error.message }));
-    child.on('close', (code) => resolve({ code: code ?? 1, output }));
+    child.on('error', (error) => {
+      clearTimeout(timer);
+      resolve({ code: 1, output: error.message });
+    });
+    child.on('close', (code) => {
+      clearTimeout(timer);
+      resolve({ code: code ?? 1, output });
+    });
   });
 }
 
@@ -36,6 +43,5 @@ export const CheckAfterEdit = async ({ directory }) => ({
     const status = result.code === 0 ? 'PASS' : 'FAIL';
     const text = `\n\nAutomatic check: ${status}\n${result.output}`;
     output.output = `${output.output ?? ''}${text}`;
-
   },
 });
