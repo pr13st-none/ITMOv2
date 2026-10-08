@@ -1,4 +1,4 @@
-Рабочая папка — practices/practice_04. Прочитай AGENTS.md и review_contract.py, загрузи skill test-driven-development. Используй write: создай НОВЫЙ файл tests/test_null_diff.py (не test_review_contract.py) с этим содержимым:
+Рабочая папка — practices/practice_04. Прочитай AGENTS.md, SKILL_ANALYSIS.md и review_contract.py, загрузи skill test-driven-development. Используй write: создай НОВЫЙ файл tests/test_null_diff.py (не test_review_contract.py) с этим содержимым:
 import pytest
 from review_contract import ContractError, check_payload
 
