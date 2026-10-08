@@ -1,0 +1,150 @@
+{
+  "command": [
+    "opencode",
+    "run",
+    "--agent",
+    "local-guide",
+    "--format",
+    "json",
+    "--auto",
+    "Сначала вызови read для service.py и test_service.py. Что произойдёт при subscribe(\" \"), и где это проверяется?"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 3.018,
+  "events": [
+    {
+      "type": "step_start",
+      "timestamp": 1791502043651,
+      "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+      "part": {
+        "id": "prt_11dd7c9e5001xR0VJOEE5BDrJk",
+        "messageID": "msg_11dd7c5760016WJMH8TqEkfpv5",
+        "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+        "type": "step-start"
+      }
+    },
+    {
+      "type": "tool_use",
+      "timestamp": 1791502043651,
+      "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "callID": "ksnGoIscP0WCiven6pfFwxFcRAyrOfc0",
+        "state": {
+          "status": "error",
+          "input": {
+            "filePath": "/service.py"
+          },
+          "error": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"external_directory\",\"pattern\":\"*\",\"action\":\"ask\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\practice3-m7g64o63\\\\xdg-data\\\\opencode\\\\tool-output\\\\*\",\"action\":\"allow\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\opencode\\\\*\",\"action\":\"allow\"},{\"permission\":\"external_directory\",\"action\":\"deny\",\"pattern\":\"*\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\practice3-m7g64o63\\\\xdg-data\\\\opencode\\\\tool-output\\\\*\",\"action\":\"allow\"}]",
+          "time": {
+            "start": 1791502043629,
+            "end": 1791502043637
+          }
+        },
+        "id": "prt_11dd7c9e7001uggZANd0N3NbV4",
+        "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+        "messageID": "msg_11dd7c5760016WJMH8TqEkfpv5"
+      }
+    },
+    {
+      "type": "tool_use",
+      "timestamp": 1791502043651,
+      "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "callID": "5gGfok8RsxQCxCg1a5h7kDUkcYNU7tH6",
+        "state": {
+          "status": "error",
+          "input": {
+            "filePath": "/test_service.py"
+          },
+          "error": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"external_directory\",\"pattern\":\"*\",\"action\":\"ask\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\practice3-m7g64o63\\\\xdg-data\\\\opencode\\\\tool-output\\\\*\",\"action\":\"allow\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\opencode\\\\*\",\"action\":\"allow\"},{\"permission\":\"external_directory\",\"action\":\"deny\",\"pattern\":\"*\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\practice3-m7g64o63\\\\xdg-data\\\\opencode\\\\tool-output\\\\*\",\"action\":\"allow\"}]",
+          "time": {
+            "start": 1791502043633,
+            "end": 1791502043639
+          }
+        },
+        "id": "prt_11dd7c9ee001k4g5IBNynl9u0F",
+        "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+        "messageID": "msg_11dd7c5760016WJMH8TqEkfpv5"
+      }
+    },
+    {
+      "type": "step_finish",
+      "timestamp": 1791502043651,
+      "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+      "part": {
+        "id": "prt_11dd7c9fa001pf6pMzRIhLo1Ru",
+        "reason": "tool-calls",
+        "messageID": "msg_11dd7c5760016WJMH8TqEkfpv5",
+        "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+        "type": "step-finish",
+        "tokens": {
+          "total": 1324,
+          "input": 1283,
+          "output": 41,
+          "reasoning": 0,
+          "cache": {
+            "write": 0,
+            "read": 0
+          }
+        },
+        "cost": 0
+      }
+    },
+    {
+      "type": "step_start",
+      "timestamp": 1791502043799,
+      "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+      "part": {
+        "id": "prt_11dd7ca94001Otp5uC4uIoHENW",
+        "messageID": "msg_11dd7ca00001S6RTmezeGueiEX",
+        "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+        "type": "step-start"
+      }
+    },
+    {
+      "type": "text",
+      "timestamp": 1791502043875,
+      "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+      "part": {
+        "id": "prt_11dd7ca96001KvtgpB0jQcri8F",
+        "messageID": "msg_11dd7ca00001S6RTmezeGueiEX",
+        "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+        "type": "text",
+        "text": "Данных нет.",
+        "time": {
+          "start": 1791502043798,
+          "end": 1791502043865
+        }
+      }
+    },
+    {
+      "type": "step_finish",
+      "timestamp": 1791502043875,
+      "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+      "part": {
+        "id": "prt_11dd7cadb0015CmqaC2ev1qKOb",
+        "reason": "stop",
+        "messageID": "msg_11dd7ca00001S6RTmezeGueiEX",
+        "sessionID": "ses_ee2283c5effeJuu3OloJiQ6o6E",
+        "type": "step-finish",
+        "tokens": {
+          "total": 1724,
+          "input": 1718,
+          "output": 6,
+          "reasoning": 0,
+          "cache": {
+            "write": 0,
+            "read": 0
+          }
+        },
+        "cost": 0
+      }
+    }
+  ],
+  "stderr": "",
+  "non_json_stdout": []
+}

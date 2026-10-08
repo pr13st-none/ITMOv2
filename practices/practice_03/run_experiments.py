@@ -44,6 +44,9 @@ def executable_command(command):
     resolved = shutil.which(command[0]) or command[0]
     invocation = [resolved, *command[1:]]
     if Path(resolved).suffix.lower() in {".cmd", ".bat"}:
+        native = Path(resolved).parent / "node_modules/opencode-ai/bin/opencode.exe"
+        if native.exists() and Path(resolved).stem == "opencode":
+            return [str(native), *command[1:]]
         return ["cmd.exe", "/d", "/s", "/c", subprocess.list2cmdline(invocation)]
     return invocation
 
@@ -152,7 +155,7 @@ def run_cli(command, cwd, env, output):
         "non_json_stdout": non_json,
     }
     save(output, record)
-    if code != 0:
+    if code != 0 or any(event.get("type") == "error" for event in events):
         raise RuntimeError(f"OpenCode failed: {output.name}, exit {code}\n{stderr}")
     return record
 
@@ -217,25 +220,18 @@ def final_text(record):
 def read_seen(record):
     return any(
         event.get("part", {}).get("tool") == "read"
-        or event.get("tool") == "read"
+        and event.get("part", {}).get("state", {}).get("status") == "completed"
         for event in record["events"]
     )
 
 
-def evaluate(question_id, answer):
-    text = answer.lower()
-    checks = {
-        "Q1": (("make test",), ("readme", "makefile")),
-        "Q2": (("valueerror",), ("service.py",)),
-        "Q3": (("unsubscribe",), ("нет", "отсутств", "не реализ")),
-        "Q4": (("ci",), ("нет", "отсутств", "не указан", "нельзя определить")),
-        "Q5": (("set", "памят"), ("нет", "не сохраня")),
-    }[question_id]
-    return all(any(term in text for term in alternatives) for alternatives in checks)
-
-
-def compact(value, limit=500):
-    return value.replace("\n", " ").replace("|", "\\|")[:limit]
+def manifest_for(repo):
+    return {
+        path.relative_to(repo).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted(repo.rglob("*"))
+        if path.is_file() and path.name != "opencode.json"
+        and "__pycache__" not in path.parts
+    }
 
 
 def clean_markdown(value):
@@ -261,7 +257,7 @@ def trim_model_show(model_show):
     }
 
 
-def write_answers(out, questions, answers, summary):
+def write_answers(out, questions, answers):
     lines = [
         "# Ответы локальной модели",
         "",
@@ -279,92 +275,13 @@ def write_answers(out, questions, answers, summary):
             "",
             f"**B:** {clean_markdown(answers['B'][qid])}",
             "",
-            f"**Сверка:** A — {'OK' if summary['quality']['A'][qid] else 'ошибка/граница'}, B — {'OK' if summary['quality']['B'][qid] else 'ошибка/граница'}.",
-            "",
         ]
     (HERE / "ANSWERS.md").write_text("\n".join(lines), encoding="utf-8")
 
 
-def write_report(out, questions, answers, summary, environment):
-    details = environment["model_show"].get("details", {})
-    ram = environment.get("ram_bytes")
-    ram_gib = f"{ram / 1024**3:.1f} GiB" if ram else "не определена"
-    score_a = sum(summary["quality"]["A"].values())
-    score_b = sum(summary["quality"]["B"].values())
-    lines = [
-        "# REPORT — практика 3",
-        "",
-        "## Локальный сетап",
-        "",
-        f"- ОС: `{environment['platform']}`;",
-        f"- CPU: `{environment['cpu']}`, логических ядер: `{environment['logical_cpu_count']}`;",
-        f"- RAM: `{ram_gib}`;",
-        f"- GPU: `{environment['gpu']['stdout'] or environment['gpu']['stderr']}`;",
-        f"- OpenCode: `{environment['opencode']['stdout']}`;",
-        f"- Ollama: `{environment['ollama']['stdout']}`;",
-        f"- Python: `{environment['python']}`; GNU Make: `{environment['make']['stdout'].splitlines()[0]}`;",
-        f"- базовая модель: `{environment['base_model']}`; локальный ID: `{environment['model']}`;",
-        f"- параметры: `{details.get('parameter_size', 'unknown')}`, квантизация `{details.get('quantization_level', 'unknown')}`, context `16384`, temperature `0.2`, seed `42`, num_predict `1024`.",
-        "",
-        "Модель 4B/Q4_K_M выбрана как компромисс: она полностью помещается в 16 GB VRAM, поддерживает tool calls и работает без облачного API. Контекст 16384 нужен, потому что 4096 токенов не вмещают системный prompt OpenCode, схемы read-only tools и файлы задачи.",
-        "",
-        "## Проверка проекта",
-        "",
-        "```text",
-        "\n".join(
-            part for part in (
-                environment["make_test"]["stdout"],
-                environment["make_test"]["stderr"],
-            ) if part
-        ),
-        "```",
-        "",
-        "## Контроль A/B",
-        "",
-        "В обоих вариантах одинаковы модель, квантизация, demo-файлы, вопросы, context, temperature, seed, num_predict, OpenCode и read-only permissions. Изменён ровно один фактор — system prompt.",
-        "",
-        "- A: прочитать файлы, кратко ответить и указать источник.",
-        "- B: дополнительно проверять предпосылки, требовать file:line и не выдумывать отсутствующие данные.",
-        "",
-        "## Пять вопросов",
-        "",
-        "| Вопрос | A | B |",
-        "|---|---|---|",
-    ]
-    for question in questions:
-        qid = question["id"]
-        a_mark = "OK" if summary["quality"]["A"][qid] else "ошибка/граница"
-        b_mark = "OK" if summary["quality"]["B"][qid] else "ошибка/граница"
-        lines.append(
-            f"| {qid}: {compact(question['question'], 180)} | **{a_mark}** — {compact(answers['A'][qid])} | **{b_mark}** — {compact(answers['B'][qid])} |"
-        )
-
-    med_a = summary["timing"]["A"]["median_wall_seconds"]
-    med_b = summary["timing"]["B"]["median_wall_seconds"]
-    lines += [
-        "",
-        "## Результаты и ограничения",
-        "",
-        f"- фактическая сверка с эталоном: A — `{score_a}/5`, B — `{score_b}/5`;",
-        f"- read-tool подтверждён: A — `{summary['read_tools']['A']}/5`, B — `{summary['read_tools']['B']}/5`;",
-        f"- три прогретых запуска A: `{summary['timing']['A']['warmed_wall_seconds']}`, медиана `{med_a:.3f} s`;",
-        f"- три прогретых запуска B: `{summary['timing']['B']['warmed_wall_seconds']}`, медиана `{med_b:.3f} s`;",
-        "- измерялся полный wall time OpenCode-сессии, а не TTFT;",
-        "- SHA-256 demo-файлов до и после совпал: тестируемый агент ничего не изменил.",
-        "",
-        "Ключевые проверки — Q3 с ложной предпосылкой и Q4 без ответа в репозитории. Именно они показывают, умеет ли модель отказаться от выдуманного факта. Даже результат 5/5 на маленьком demo не доказывает надёжность на большом проекте: не проверялись длинные зависимости, большой объём кода и сложные refactoring-сценарии.",
-        "",
-        f"Для демонстрации оставлена конфигурация **{'B' if score_b >= score_a else 'A'}**: она не хуже по фактической сверке и явно требует проверять предпосылки и источники.",
-        "",
-        f"Сырые события, tool calls, ответы, конфиги и замеры лежат в `{out.relative_to(HERE).as_posix()}/`.",
-        "",
-    ]
-    (HERE / "REPORT.md").write_text("\n".join(lines), encoding="utf-8")
-
-
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", default="qwen3:4b-instruct")
+    parser.add_argument("--model", default="qwen3:8b")
     parser.add_argument("--agent-model", default="itmo-review-agent")
     parser.add_argument("--opencode", default="opencode")
     parser.add_argument("--output", type=Path)
@@ -406,18 +323,18 @@ def main():
         },
         "model_show": trim_model_show(api("/api/show", {"model": args.agent_model})),
     }
+    if os.name == "nt":
+        cpu_name = cmd_output([
+            "powershell", "-NoProfile", "-Command",
+            "(Get-CimInstance Win32_Processor).Name",
+        ])
+        if cpu_name["exit_code"] == 0:
+            environment["cpu"] = cpu_name["stdout"]
     save(out / "environment.json", environment)
     if environment["make_test"]["exit_code"] != 0:
         raise RuntimeError("make test failed")
 
-    demo_files = sorted(
-        path for path in DEMO.rglob("*")
-        if path.is_file() and path.name != "opencode.json" and "__pycache__" not in path.parts
-    )
-    manifest = {
-        str(path.relative_to(DEMO)): hashlib.sha256(path.read_bytes()).hexdigest()
-        for path in demo_files
-    }
+    manifest = manifest_for(DEMO)
     save(out / "input-manifest.json", manifest)
 
     questions = json.loads((HERE / "questions.json").read_text(encoding="utf-8"))
@@ -449,15 +366,18 @@ def main():
         (repo / "opencode.json").write_text(
             json.dumps(configs["B"], ensure_ascii=False, indent=2), encoding="utf-8"
         )
-        reference_prompt = "Прочитай README.md, Makefile, service.py и test_service.py. Ответь на все вопросы, не изменяя файлы:\n" + "\n".join(
+        reference_prompt = "Ты рабочий агент в режиме Build. Вопросы относятся ТОЛЬКО к lab/demo, не ко всему учебному репозиторию. Прочитай lab/demo/README.md, lab/demo/Makefile, lab/demo/service.py, lab/demo/test_service.py. Проверь пять эталонов questions.json по коду, исправь неверные эталоны, если есть, и объясни сверку со ссылками файл:строка:\n" + "\n".join(
             f"{question['id']}. {question['question']}" for question in questions
         )
         run_cli(
-            [args.opencode, "run", "--agent", "local-guide", "--format", "json", "--auto", reference_prompt],
-            repo,
+            [args.opencode, "run", "--agent", "build", "--format", "json", "--auto", reference_prompt],
+            HERE,
             env,
             out / "reference-opencode.json",
         )
+
+        # The working agent's reference stays outside the tested directory.
+        questions = json.loads((HERE / "questions.json").read_text(encoding="utf-8"))
 
         for variant in ("A", "B"):
             (repo / "opencode.json").write_text(
@@ -472,8 +392,10 @@ def main():
                     out / f"{variant}-{qid}.json",
                 )
                 answers[variant][qid] = final_text(record)
+                print(f"{variant} {qid}: {answers[variant][qid]}", flush=True)
                 read_counts[variant] += int(read_seen(record))
 
+            print(f"{variant}: three warmed timing runs", flush=True)
             for repeat in range(1, 4):
                 record = run_cli(
                     [args.opencode, "run", "--agent", "local-guide", "--format", "json", "--auto", questions[0]["question"]],
@@ -483,10 +405,7 @@ def main():
                 )
                 timing[variant].append(record["wall_seconds"])
 
-        after = {
-            relative: hashlib.sha256((repo / relative).read_bytes()).hexdigest()
-            for relative in manifest
-        }
+        after = manifest_for(repo)
         integrity = {"unchanged": manifest == after, "before": manifest, "after": after}
         save(out / "input-integrity.json", integrity)
         if not integrity["unchanged"]:
@@ -501,19 +420,12 @@ def main():
             for variant in ("A", "B")
         },
         "read_tools": read_counts,
-        "quality": {
-            variant: {
-                question["id"]: evaluate(question["id"], answers[variant][question["id"]])
-                for question in questions
-            }
-            for variant in ("A", "B")
-        },
+        "review": "Compare answers.json with questions.json manually; no substring scoring",
     }
     save(out / "answers.json", answers)
     save(out / "summary.json", summary)
     save(out / "ollama-ps.json", api("/api/ps"))
-    write_answers(out, questions, answers, summary)
-    write_report(out, questions, answers, summary, environment)
+    write_answers(out, questions, answers)
     print(f"Practice 3 complete: {out}")
 
 

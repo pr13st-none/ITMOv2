@@ -1,0 +1,48 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/itmo-review-agent",
+  "small_model": "ollama/itmo-review-agent",
+  "default_agent": "local-guide",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama local",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      },
+      "models": {
+        "itmo-review-agent": {
+          "name": "ITMO read-only local agent",
+          "limit": {
+            "context": 16384,
+            "output": 1024
+          }
+        }
+      }
+    }
+  },
+  "agent": {
+    "local-guide": {
+      "description": "Read-only local agent for the bundled demo repository",
+      "mode": "primary",
+      "prompt": "Ты помощник по учебному репозиторию. Перед ответом обязательно вызови read и прочитай относящиеся к вопросу файлы. Сначала проверь утверждения вопроса по доступным файлам. Для каждого факта укажи файл и строки. Если ответа в репозитории нет, прямо напиши, что данных нет. Не выдумывай функции, CI, настройки и результаты команд. Отвечай кратко по-русски.\nВ read используй относительные пути без начального / (например service.py). При ошибке чтения повтори вызов с правильным путём; ошибка чтения не означает отсутствие данных. /no_think",
+      "steps": 8,
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "skill": "deny",
+        "todowrite": "deny",
+        "question": "deny",
+        "lsp": "deny",
+        "external_directory": "deny"
+      }
+    }
+  }
+}
