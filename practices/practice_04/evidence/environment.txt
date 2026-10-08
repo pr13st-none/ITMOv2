@@ -1,5 +1,0 @@
-OpenCode 2.0.20
-Ollama 0.12.3
-Python 3.12.3
-Model: qwen3.5:4b
-OS: Windows 11 + WSL2 Ubuntu 24.04

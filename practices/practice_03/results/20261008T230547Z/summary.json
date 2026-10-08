@@ -1,0 +1,40 @@
+{
+  "timing": {
+    "A": {
+      "warmed_wall_seconds": [
+        3.903,
+        4.398,
+        4.556
+      ],
+      "median_wall_seconds": 4.398
+    },
+    "B": {
+      "warmed_wall_seconds": [
+        3.613,
+        4.139,
+        4.086
+      ],
+      "median_wall_seconds": 4.086
+    }
+  },
+  "read_tools": {
+    "A": 5,
+    "B": 5
+  },
+  "quality": {
+    "A": {
+      "Q1": true,
+      "Q2": false,
+      "Q3": false,
+      "Q4": true,
+      "Q5": true
+    },
+    "B": {
+      "Q1": true,
+      "Q2": true,
+      "Q3": true,
+      "Q4": true,
+      "Q5": true
+    }
+  }
+}

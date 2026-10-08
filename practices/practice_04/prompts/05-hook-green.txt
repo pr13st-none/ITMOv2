@@ -1,1 +1,0 @@
-В tests/test_hook_probe.py замени только `assert False` на `assert True`. Дождись результата execute.after hook и зафиксируй PASS. После проверки удали временный probe-тест и выполни финальный `bash check.sh`.

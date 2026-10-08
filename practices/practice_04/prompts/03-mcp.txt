@@ -1,1 +1,0 @@
-Используй MCP tool review-contract/check_review_payload два раза: сначала для payload {"diff":"+line\n"}, затем для пустого payload {}. Покажи успешный результат и контролируемую ошибку.
