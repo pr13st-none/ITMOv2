@@ -1,1 +1,11 @@
-Прочитай AGENTS.md, SKILL_ANALYSIS.md, review_contract.py и tests/test_null_diff.py, загрузи skill test-driven-development. Исправь только review_contract.py: после проверки обязательного diff отклоняй chr(0) в diff с ContractError('diff_binary', 'diff must be text without NUL bytes'). Не меняй тест и не ослабляй другие проверки. Дождись PASS автоматического hook, затем запусти python check.py. Если проверка уже реализована, не меняй файлы, просто запусти runner.
+Прочитай AGENTS.md, SKILL_ANALYSIS.md, review_contract.py и tests/test_null_diff.py; загрузи skill test-driven-development. В read/edit используй путь review_contract.py БЕЗ начального слеша. Это продолжение red-показа на версии до проверки NUL; test_rejects_null_byte уже падает с DID NOT RAISE.
+
+Используй edit только для review_contract.py. Найди строку:
+    size = len(diff.encode("utf-8"))
+И замени её на:
+    if chr(0) in diff:
+        raise ContractError("diff_binary", "diff must be text without NUL bytes")
+
+    size = len(diff.encode("utf-8"))
+
+Не меняй тест и другие проверки. Дождись Automatic check: PASS. Затем запусти python check.py и остановись. Не говори «готово» или «уже реализовано», если чтение или edit завершились ошибкой.
