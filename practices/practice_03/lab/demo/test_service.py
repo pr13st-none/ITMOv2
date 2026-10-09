@@ -1,4 +1,5 @@
 import unittest
+
 from service import subscribe, subscribers
 
 
@@ -22,4 +23,3 @@ class SubscribeTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

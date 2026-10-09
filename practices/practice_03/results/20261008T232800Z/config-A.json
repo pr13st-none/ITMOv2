@@ -23,9 +23,9 @@
   },
   "agent": {
     "local-guide": {
-      "description": "Read-only local agent for the demo repository",
+      "description": "Read-only local agent for the bundled demo repository",
       "mode": "primary",
-      "prompt": "{file:./repo-system.txt}",
+      "prompt": "Ты помощник по учебному репозиторию. Перед ответом обязательно вызови read и прочитай относящиеся к вопросу файлы. Кратко ответь по-русски и укажи источник.",
       "steps": 8,
       "permission": {
         "read": "allow",

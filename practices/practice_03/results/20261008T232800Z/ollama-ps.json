@@ -1,0 +1,23 @@
+{
+  "models": [
+    {
+      "name": "itmo-practice4:latest",
+      "model": "itmo-practice4:latest",
+      "size": 5098103111,
+      "digest": "c5947c603f350a1735287791abc1d2275486a2538314de54a7bb27443a72cfc4",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "4.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "expires_at": "2026-10-09T02:32:46.1515797+03:00",
+      "size_vram": 5098103111,
+      "context_length": 16384
+    }
+  ]
+}
