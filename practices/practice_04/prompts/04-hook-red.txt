@@ -1,0 +1,10 @@
+Рабочая папка — practices/practice_04. Прочитай AGENTS.md, SKILL_ANALYSIS.md и review_contract.py, загрузи skill test-driven-development. Используй write: создай НОВЫЙ файл tests/test_null_diff.py (не test_review_contract.py) с этим содержимым:
+import pytest
+from review_contract import ContractError, check_payload
+
+def test_rejects_null_byte():
+    with pytest.raises(ContractError) as error:
+        check_payload({'diff': '+line' + chr(0)})
+    assert error.value.code == 'diff_binary'
+
+Не используй glob и не читай файлы из другой практики. Реализацию НЕ меняй. Дождись Automatic check: FAIL с DID NOT RAISE, объясни причину падения и остановись.

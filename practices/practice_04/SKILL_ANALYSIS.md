@@ -1,0 +1,3 @@
+# Разбор skill
+
+Взял готовый [test-driven-development из Superpowers v4.3.1](https://github.com/obra/superpowers/blob/v4.3.1/skills/test-driven-development/SKILL.md), копия и лицензия лежат в `.opencode/skills/test-driven-development/`. Внутри описан порядок red → green → refactor: сначала тест на одно поведение, затем проверка причины падения и минимальное исправление. Я применил его к diff с NUL-байтом: до исправления тест падал с `DID NOT RAISE`, а после исправления проходил вместе с остальными тестами через `python check.py`. Главное ограничение skill — он задаёт порядок работы, но не выбирает за меня полезное требование и не заменяет проверку результата.
