@@ -1,0 +1,1 @@
+Загрузи skill test-driven-development. Ничего не меняй. Объясни применительно к review_contract.py шаги red, green и full check.
