@@ -1,0 +1,1 @@
+Используй MCP review-contract: вызови check_review_payload два раза — с payload, где diff равен строке +line, затем с пустым payload {}. Ничего не меняй. Покажи успех (5 UTF-8 байт) и контролируемую ошибку diff_required.
