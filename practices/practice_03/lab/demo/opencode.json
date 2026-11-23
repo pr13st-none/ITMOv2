@@ -1,20 +1,21 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "ollama/itmo-agent",
-  "small_model": "ollama/itmo-agent",
+  "model": "ollama/itmo-review-agent",
+  "small_model": "ollama/itmo-review-agent",
+  "default_agent": "local-guide",
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "Ollama local",
       "options": {
-        "baseURL": "http://localhost:11434/v1"
+        "baseURL": "http://127.0.0.1:11434/v1"
       },
       "models": {
-        "itmo-agent": {
-          "name": "ITMO local 64k",
+        "itmo-review-agent": {
+          "name": "ITMO read-only local agent",
           "limit": {
-            "context": 65536,
-            "output": 4096
+            "context": 16384,
+            "output": 1024
           }
         }
       }
@@ -22,17 +23,26 @@
   },
   "agent": {
     "local-guide": {
-      "description": "Read-only local repository assistant",
+      "description": "Read-only local agent for the demo repository",
       "mode": "primary",
       "prompt": "{file:./repo-system.txt}",
       "steps": 8,
       "permission": {
-        "*": "deny",
         "read": "allow",
         "glob": "allow",
-        "grep": "allow"
+        "grep": "allow",
+        "list": "allow",
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "skill": "deny",
+        "todowrite": "deny",
+        "question": "deny",
+        "lsp": "deny",
+        "external_directory": "deny"
       }
     }
   }
 }
-

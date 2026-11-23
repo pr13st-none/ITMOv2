@@ -1,0 +1,25 @@
+{
+  "timing": {
+    "A": {
+      "warmed_wall_seconds": [
+        16.563,
+        24.868,
+        25.817
+      ],
+      "median_wall_seconds": 24.868
+    },
+    "B": {
+      "warmed_wall_seconds": [
+        17.944,
+        25.492,
+        25.55
+      ],
+      "median_wall_seconds": 25.492
+    }
+  },
+  "read_tools": {
+    "A": 5,
+    "B": 5
+  },
+  "review": "Compare answers.json with questions.json manually; no substring scoring"
+}

@@ -1,0 +1,106 @@
+{
+  "utc": "2026-10-08T23:29:35.379383+00:00",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "cpu": "AMD Ryzen 7 7700 8-Core Processor",
+  "logical_cpu_count": 16,
+  "ram_bytes": 33158033408,
+  "base_model": "qwen3:8b",
+  "model": "itmo-review-agent",
+  "python": "3.11.9",
+  "opencode": {
+    "command": [
+      "opencode",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "1.18.35",
+    "stderr": ""
+  },
+  "ollama": {
+    "command": [
+      "ollama",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "ollama version is 0.33.2",
+    "stderr": ""
+  },
+  "make": {
+    "command": [
+      "C:\\Program Files (x86)\\GnuWin32\\bin\\make.EXE",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "GNU Make 3.81\nCopyright (C) 2006  Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.\nThere is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A\nPARTICULAR PURPOSE.\n\nThis program built for i386-pc-mingw32",
+    "stderr": ""
+  },
+  "make_test": {
+    "command": [
+      "C:\\Program Files (x86)\\GnuWin32\\bin\\make.EXE",
+      "test"
+    ],
+    "exit_code": 0,
+    "stdout": "Standard library only: ready",
+    "stderr": "test_duplicate (test_service.SubscribeTest.test_duplicate) ... ok\ntest_empty (test_service.SubscribeTest.test_empty) ... ok\ntest_subscribe (test_service.SubscribeTest.test_subscribe) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK"
+  },
+  "gpu": {
+    "command": [
+      "nvidia-smi",
+      "--query-gpu=name,memory.total,driver_version",
+      "--format=csv,noheader"
+    ],
+    "exit_code": 0,
+    "stdout": "NVIDIA GeForce RTX 4060 Ti, 16380 MiB, 616.56",
+    "stderr": ""
+  },
+  "ollama_tags": {
+    "models": [
+      {
+        "name": "itmo-review-agent:latest",
+        "model": "itmo-review-agent:latest",
+        "modified_at": "2026-10-09T02:29:34.7298364+03:00",
+        "size": 5027783704,
+        "digest": "b1429ce3635b8b14a17f4c2b4e18044e8443e2e8f8aa431d653bf3b4fd5f3c0b",
+        "details": {
+          "parent_model": "qwen3:8b",
+          "format": "gguf",
+          "family": "qwen3",
+          "families": [
+            "qwen3"
+          ],
+          "parameter_size": "8.2B",
+          "quantization_level": "Q4_K_M",
+          "context_length": 40960,
+          "embedding_length": 4096
+        },
+        "capabilities": [
+          "completion"
+        ]
+      }
+    ]
+  },
+  "model_show": {
+    "details": {
+      "parent_model": "qwen3:8b",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "8.2B",
+      "quantization_level": "Q4_K_M"
+    },
+    "parameters": "seed                           42\ntemperature                    0.2\nnum_ctx                        16384\nnum_predict                    1024",
+    "capabilities": [
+      "tools",
+      "thinking",
+      "completion"
+    ],
+    "modified_at": "2026-10-09T02:29:34.7298364+03:00",
+    "model_info": {
+      "general.architecture": "qwen3",
+      "general.parameter_count": 8190735360,
+      "qwen3.context_length": 40960
+    }
+  }
+}

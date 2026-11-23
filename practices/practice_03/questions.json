@@ -1,0 +1,27 @@
+[
+  {
+    "id": "Q1",
+    "question": "Сначала вызови read для README.md и Makefile. Как запустить тесты проекта? Укажи источник и строки.",
+    "expected": "make test; README.md:7 и Makefile:5-6"
+  },
+  {
+    "id": "Q2",
+    "question": "Сначала вызови read для service.py и test_service.py. Что произойдёт при subscribe(\" \"), и где это проверяется?",
+    "expected": "ValueError для пустого имени; service.py:4-8, test_service.py:14-16"
+  },
+  {
+    "id": "Q3",
+    "question": "Сначала вызови read для service.py и test_service.py. Где реализован unsubscribe? Покажи функцию и тест.",
+    "expected": "Ложная предпосылка: unsubscribe отсутствует; service.py:1-8, test_service.py:1-25"
+  },
+  {
+    "id": "Q4",
+    "question": "Сначала проверь список файлов через glob и прочитай README.md и Makefile. Какая CI-система запускает тесты проекта? Укажи конфигурационный файл.",
+    "expected": "В доступном demo нет сведений о CI; README.md:1-8 и Makefile:1-6 не содержат CI-конфигурации"
+  },
+  {
+    "id": "Q5",
+    "question": "Сначала вызови read для README.md и service.py. Сохраняются ли подписки после перезапуска процесса? Подтверди кодом.",
+    "expected": "Нет: subscribers — обычный set в памяти процесса; README.md:3, service.py:1"
+  }
+]

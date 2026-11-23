@@ -1,0 +1,150 @@
+{
+  "command": [
+    "opencode",
+    "run",
+    "--agent",
+    "local-guide",
+    "--format",
+    "json",
+    "--auto",
+    "Сначала вызови read для README.md и Makefile. Как запустить тесты проекта? Укажи источник и строки."
+  ],
+  "exit_code": 0,
+  "wall_seconds": 3.174,
+  "events": [
+    {
+      "type": "step_start",
+      "timestamp": 1791502040621,
+      "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+      "part": {
+        "id": "prt_11dd7be0f001FUCYPAIlCZf0yH",
+        "messageID": "msg_11dd7b8e5001k5DrFt1ohubfGK",
+        "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+        "type": "step-start"
+      }
+    },
+    {
+      "type": "tool_use",
+      "timestamp": 1791502040622,
+      "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "callID": "BztoWAPSjDbr7kjlvQUbnc5kSnT3qWUC",
+        "state": {
+          "status": "error",
+          "input": {
+            "filePath": "/README.md"
+          },
+          "error": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"external_directory\",\"pattern\":\"*\",\"action\":\"ask\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\practice3-m7g64o63\\\\xdg-data\\\\opencode\\\\tool-output\\\\*\",\"action\":\"allow\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\opencode\\\\*\",\"action\":\"allow\"},{\"permission\":\"external_directory\",\"action\":\"deny\",\"pattern\":\"*\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\practice3-m7g64o63\\\\xdg-data\\\\opencode\\\\tool-output\\\\*\",\"action\":\"allow\"}]",
+          "time": {
+            "start": 1791502040599,
+            "end": 1791502040608
+          }
+        },
+        "id": "prt_11dd7be11001EufzbHkxpByPqY",
+        "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+        "messageID": "msg_11dd7b8e5001k5DrFt1ohubfGK"
+      }
+    },
+    {
+      "type": "tool_use",
+      "timestamp": 1791502040622,
+      "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+      "part": {
+        "type": "tool",
+        "tool": "read",
+        "callID": "HCwxQNrm1A6s7JBXo2ozhkLAH8Tmeqma",
+        "state": {
+          "status": "error",
+          "input": {
+            "filePath": "/Makefile"
+          },
+          "error": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"external_directory\",\"pattern\":\"*\",\"action\":\"ask\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\practice3-m7g64o63\\\\xdg-data\\\\opencode\\\\tool-output\\\\*\",\"action\":\"allow\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\opencode\\\\*\",\"action\":\"allow\"},{\"permission\":\"external_directory\",\"action\":\"deny\",\"pattern\":\"*\"},{\"permission\":\"external_directory\",\"pattern\":\"C:\\\\Users\\\\unkno\\\\AppData\\\\Local\\\\Temp\\\\practice3-m7g64o63\\\\xdg-data\\\\opencode\\\\tool-output\\\\*\",\"action\":\"allow\"}]",
+          "time": {
+            "start": 1791502040604,
+            "end": 1791502040610
+          }
+        },
+        "id": "prt_11dd7be18001SVH0GGMTSgrXU1",
+        "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+        "messageID": "msg_11dd7b8e5001k5DrFt1ohubfGK"
+      }
+    },
+    {
+      "type": "step_finish",
+      "timestamp": 1791502040622,
+      "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+      "part": {
+        "id": "prt_11dd7be24001QR4Tf5P66XJ4on",
+        "reason": "tool-calls",
+        "messageID": "msg_11dd7b8e5001k5DrFt1ohubfGK",
+        "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+        "type": "step-finish",
+        "tokens": {
+          "total": 1321,
+          "input": 1281,
+          "output": 40,
+          "reasoning": 0,
+          "cache": {
+            "write": 0,
+            "read": 0
+          }
+        },
+        "cost": 0
+      }
+    },
+    {
+      "type": "step_start",
+      "timestamp": 1791502040763,
+      "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+      "part": {
+        "id": "prt_11dd7beb8001WjwivSoO7ymZWq",
+        "messageID": "msg_11dd7be2a001tUkFm1RhRCFdw1",
+        "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+        "type": "step-start"
+      }
+    },
+    {
+      "type": "text",
+      "timestamp": 1791502040846,
+      "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+      "part": {
+        "id": "prt_11dd7beba001wFbLe7ofgMA3V1",
+        "messageID": "msg_11dd7be2a001tUkFm1RhRCFdw1",
+        "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+        "type": "text",
+        "text": "Данных нет.",
+        "time": {
+          "start": 1791502040762,
+          "end": 1791502040836
+        }
+      }
+    },
+    {
+      "type": "step_finish",
+      "timestamp": 1791502040846,
+      "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+      "part": {
+        "id": "prt_11dd7bf07001hiw9YPpE1Tyymp",
+        "reason": "stop",
+        "messageID": "msg_11dd7be2a001tUkFm1RhRCFdw1",
+        "sessionID": "ses_ee22848c8ffePfURc2ajSNSx8u",
+        "type": "step-finish",
+        "tokens": {
+          "total": 1721,
+          "input": 1715,
+          "output": 6,
+          "reasoning": 0,
+          "cache": {
+            "write": 0,
+            "read": 0
+          }
+        },
+        "cost": 0
+      }
+    }
+  ],
+  "stderr": "",
+  "non_json_stdout": []
+}

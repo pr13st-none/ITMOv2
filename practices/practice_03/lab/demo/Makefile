@@ -1,4 +1,6 @@
 .PHONY: test
-test:
-	python3 -m unittest -v
 
+PYTHON ?= python
+
+test:
+	$(PYTHON) -m unittest -v

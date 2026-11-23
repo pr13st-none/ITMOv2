@@ -6,4 +6,3 @@ def subscribe(name):
         raise ValueError("empty name")
     subscribers.add(name.strip())
     return {"subscribed": True}
-

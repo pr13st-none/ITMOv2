@@ -1,0 +1,17 @@
+{
+  "unchanged": true,
+  "before": {
+    "Makefile": "5645ab8a6297d1f1f0365af4bab2d3cbb89498d91f3e2842bc9f295711b59d1d",
+    "README.md": "b148ab701bb59a01af2d089700e4d36e8311a8a9e61091467a67a6e48aa41ffc",
+    "repo-system.txt": "ff3a610026f585062f7a40281f4a13f88de5a9eb8bd394d80f35fb2f24a1d4da",
+    "service.py": "05f61493a275aeebedc456b2209db166fd1c5323eaf779a842f9d66660106498",
+    "test_service.py": "7a38630ee0f11b6583922700768e24356e72303df74e82f3811abb397f2b884e"
+  },
+  "after": {
+    "Makefile": "5645ab8a6297d1f1f0365af4bab2d3cbb89498d91f3e2842bc9f295711b59d1d",
+    "README.md": "b148ab701bb59a01af2d089700e4d36e8311a8a9e61091467a67a6e48aa41ffc",
+    "repo-system.txt": "ff3a610026f585062f7a40281f4a13f88de5a9eb8bd394d80f35fb2f24a1d4da",
+    "service.py": "05f61493a275aeebedc456b2209db166fd1c5323eaf779a842f9d66660106498",
+    "test_service.py": "7a38630ee0f11b6583922700768e24356e72303df74e82f3811abb397f2b884e"
+  }
+}
